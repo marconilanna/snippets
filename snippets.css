@@ -1,0 +1,13 @@
+/*
+ * Font Stacks
+ */
+
+.ultra-narrow-sans {font-family: Calibri, 'Gill Sans', 'Gill Sans MT', sans-serif}
+.narrow-sans       {font-family: Helvetica, Arial, sans-serif}
+.narrow-sans-alt   {font-family: Tahoma, 'Trebuchet MS', sans-serif}
+.wide-sans         {font-family: Verdana, sans-serif}
+.wide-sans-alt     {font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', sans-serif}
+.heading-sans      {font-family: 'Century Gothic', Futura, 'Helvetica Neue', sans-serif}
+.narrow-serif      {font-family: Cambria, 'Times New Roman', Times, serif}
+.wide-serif        {font-family: Constantia, Georgia, serif}
+.monospace         {font-family: Consolas, Monaco, 'Courier New', Courier, monospace}

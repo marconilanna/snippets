@@ -1,0 +1,21 @@
+<!-- HTML5 boilerplate -->
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title></title>
+<link href="/css/style.css" rel=stylesheet>
+<body>
+
+
+
+<!-- Loading jQuery from Google CDN with failover -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script>
+	if (! window.jQuery) {
+		// jQuery failed to load from Google CDN, serve local copy
+		var e = document.createElement('script')
+		e.src = "/js/jquery.js"
+		document.body.appendChild(e)
+	}
+</script>
