@@ -68,6 +68,21 @@ val list = 1 :: 2 :: 3 :: Nil // same as above
 
 
 /*
+ * Flexible casting.
+ * The following is semantically equivalent to <code>asInstanceOf[Any]</code>, but more flexible. For
+ * instance, it is possible to use different branches to perform multiple conditional casts at the same time
+ * for various types, perform conversions, and fallback or return <code>null</code> or <code>None</code>
+ * instead of throwing an exception, etc.
+ */
+
+e match {
+	case a: Any => a
+	case _ => throw new ClassCastException
+}
+
+
+
+/*
  * Get current system time
  */
 
