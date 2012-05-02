@@ -9,7 +9,7 @@ $(function () {
 
 /*
  * jQuery $ function is a constructor, and a very expensive one.
- * Do not abuse it. Invoke it once an assign it to a variable.
+ * Do not abuse it. Invoke it once and assign it to a variable.
  */
 
 var p = $('p')
