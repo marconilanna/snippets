@@ -12,12 +12,18 @@ $(function () {
  * Do not abuse it. Invoke it once and assign it to a variable.
  */
 
-var p = $('p')
-p.doSomething()
-p.doSomethingElse()
-p.doYetAnotherThing()
+var foo = $('.foo')
+foo.doSomething()
+foo.doSomethingElse()
+foo.doYetAnotherThing()
+
+// Method chaining (whenever possible)
+var foo = $('.foo')
+foo.doSomething()
+	.doSomethingElse()
+	.doYetAnotherThing()
 
 // Counter-example: this is very inefficient!
-$('p').doSomething()
-$('p').doSomethingElse()
-$('p').doYetAnotherThing()
+$('.foo').doSomething()
+$('.foo').doSomethingElse()
+$('.foo').doYetAnotherThing()
