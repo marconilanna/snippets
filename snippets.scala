@@ -56,6 +56,7 @@ map += "foo" -> "bar"
 assert(map("foo") == "bar")
 
 
+
 /*
  * Mutable collections.
  * Do not import a mutable collection directly. Import the "mutable" package
@@ -103,12 +104,15 @@ assert((a, b) == ("foo", 1))
 val list = List(1, 2, 3, 4, 5, 6)
 val x :: xs = list
 assert((x, xs) == (1, List(2, 3, 4, 5, 6)))
+
 // Same as above
 val List(x, xs@_*) = list
 assert((x, xs) == (1, List(2, 3, 4, 5, 6)))
+
 // Skipping elements
 val _ :: a :: b :: _ :: xs = list
 assert((a, b, xs) == (2, 3, List(5, 6)))
+
 // Works with other collections, too
 val vector = Vector(1, 2, 3, 4, 5, 6)
 val Vector(_, a, b, _, xs@_*) = vector
@@ -135,6 +139,8 @@ try {
 	case e: Exception => // ...
 	case _: Throwable => // Catches all
 }
+
+
 
 /*
  * Flexible casting.
