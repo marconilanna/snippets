@@ -17,6 +17,65 @@ object Echo extends App {
 
 
 /*
+ * Assertions.
+ * Assertions are used to document and check design-by-contract style invariants in code. They can
+ * be disabled at runtime with the `-Xdisable-assertions` command line option. For reference, see:
+ * http://www.scala-lang.org/api/current/index.html#scala.Predef$
+ */
+
+assert(1 > 0)
+
+// `assume` is intended for static code analysis tools. It is otherwise equivalent to `assert`.
+assume(1 > 0)
+
+// `require` is used to check pre-conditions, blaming the caller of a method for violating them.
+// Unlike other assertions, `require` throws `IllegalArgumentException` instead of `AssertionError`
+// and can never be disabled at runtime.
+require(1 > 0)
+
+// `ensuring` is used on a method's return value to check post-conditions.
+def square(a: Int) = {a * a} ensuring(_ > 0)
+
+
+
+/*
+ * Exceptions
+ */
+
+try {
+	// ...
+} catch {
+	case e: Exception => // ...
+	case _: Throwable => // Catches all
+}
+
+
+
+/*
+ * Flexible casting.
+ * The following is semantically equivalent to `asInstanceOf[Any]`, but more flexible.
+ * For instance, it is possible to use different branches to perform multiple conditional casts at
+ * the same time for various types, perform conversions, and fallback or return `None` or `null`
+ * instead of throwing an exception, etc.
+ */
+
+e match {
+	case a: AnyRef => a
+	case _ => throw new ClassCastException
+}
+
+
+
+/*
+ * Seq to variable length argument list
+ */
+
+def foo(args: Int*) = args.foreach{println(_)}
+foo(list:_*)
+
+
+
+/*
  * Notable annotations
  */
 
@@ -59,8 +118,8 @@ assert(map("foo") == "bar")
 
 /*
  * Mutable collections.
- * Do not import a mutable collection directly. Import the "mutable" package
- * instead and use the "mutable." prefix to denote mutability explicitly.
+ * Do not import a mutable collection directly. Import the `mutable` package
+ * instead and use the `mutable.` prefix to denote mutability explicitly.
  */
 
 import scala.collection.mutable
@@ -121,51 +180,6 @@ assert((a, b, xs) == (2, 3, Vector(5, 6)))
 
 
 /*
- * Seq to variable length argument list
- */
-
-def foo(args: Int*) = args.foreach{println(_)}
-foo(list:_*)
-
-
-
-/*
- * Catching exceptions
- */
-
-try {
-	// ...
-} catch {
-	case e: Exception => // ...
-	case _: Throwable => // Catches all
-}
-
-
-
-/*
- * Flexible casting.
- * The following is semantically equivalent to <code>asInstanceOf[Any]</code>, but more flexible. For
- * instance, it is possible to use different branches to perform multiple conditional casts at the same time
- * for various types, perform conversions, and fallback or return <code>null</code> or <code>None</code>
- * instead of throwing an exception, etc.
- */
-
-e match {
-	case a: AnyRef => a
-	case _ => throw new ClassCastException
-}
-
-
-
-/*
- * Get current system time
- */
-
-import System.{currentTimeMillis => now}
-
-
-
-/*
  * Regular expression extraction
  */
 
@@ -200,3 +214,43 @@ val foo(a) = 10
 assert(a == Some(10))
 val foo(b) = 12
 assert(b == None)
+
+
+
+/*
+ * Enumerations.
+ * Java enumerations, as described in Joshua Bloch's "Effective Java", are one of the language
+ * most powerful features. In Scala, there are two commonly used alternatives to Java's `Enum`:
+ * sealed case classes and the `Enumeration` trait. Unfortunately, none of them support all `Enum`
+ * features: sealed case classes, for instance, cannot be enumerated (iterated over), and
+ * `Enumeration` values cannot have fields or override methods.
+ * This example shows how to combine both to get a feature 
+ */
+
+sealed trait Gender
+case object Male extends Gender
+case object Female extends Gender
+
+object Season extends Enumeration {
+	type Season = Value
+	val Spring, Summer, Autumn, Winter = Value
+}
+
+object Suit extends Enumeration {
+	type Suit = Value
+
+	case class SuiteVal(symbol: Char) extends Val
+
+	val Spades   = SuiteVal('♠')
+	val Hearts   = SuiteVal('♥')
+	val Diamonds = SuiteVal('♦')
+	val Clubs    = SuiteVal('♣')
+}
+
+
+
+/*
+ * Get current system time
+ */
+
+import System.{currentTimeMillis => now}
