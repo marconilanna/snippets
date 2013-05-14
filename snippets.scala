@@ -221,10 +221,10 @@ assert(b == None)
  * Enumerations.
  * Java enumerations, as described in Joshua Bloch's "Effective Java", are one of the language
  * most powerful features. In Scala, there are two commonly used alternatives to Java's `Enum`:
- * sealed case classes and the `Enumeration` trait. Unfortunately, none of them support all `Enum`
- * features: sealed case classes, for instance, cannot be enumerated (iterated over), and
- * `Enumeration` values cannot have fields or override methods.
- * This example shows how to combine both to get a feature 
+ * sealed case objects and the `Enumeration` trait. Unfortunately, none of them support all `Enum`
+ * features: sealed case objects, for instance, cannot be enumerated (iterated over), and
+ * `Enumeration` values cannot have fields or override methods. These examples shows how to
+ * combine both of them to get a feature set equivalent to Java `Enum`.
  */
 
 sealed trait Gender
@@ -239,12 +239,40 @@ object Season extends Enumeration {
 object Suit extends Enumeration {
 	type Suit = Value
 
-	case class SuiteVal(symbol: Char) extends Val
+	implicit def toVal(v: Value) = v.asInstanceOf[SuiteVal]
+
+	sealed case class SuiteVal(symbol: Char) extends Val
 
 	val Spades   = SuiteVal('♠')
 	val Hearts   = SuiteVal('♥')
 	val Diamonds = SuiteVal('♦')
 	val Clubs    = SuiteVal('♣')
+}
+
+object Lang extends Enumeration {
+	type Lang = LangVal
+
+	implicit def toVal(v: Value) = v.asInstanceOf[LangVal]
+
+	sealed abstract class LangVal extends Val {
+		def greet(name: String): String
+	}
+
+	val English = new LangVal {
+		def greet(name: String) = s"Welcome, $name."
+	}
+
+	val French = new LangVal {
+		def greet(name: String) = s"Bienvenue, $name."
+	}
+
+	val Portuguese =  new LangVal {
+		def greet(name: String) = s"Bem-vindo, $name."
+	}
+
+	val Spanish = new LangVal {
+		def greet(name: String) = s"Bienvenido, $name."
+	}
 }
 
 
