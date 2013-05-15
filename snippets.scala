@@ -224,7 +224,7 @@ assert(b == None)
  * sealed case objects and the `Enumeration` trait. Unfortunately, none of them support all `Enum`
  * features: sealed case objects, for instance, cannot be enumerated (iterated over), and
  * `Enumeration` values cannot have fields or override methods. These examples shows how to
- * combine both of them to get a feature set equivalent to Java `Enum`.
+ * combine them to get a feature set equivalent to Java `Enum`.
  */
 
 sealed trait Gender
@@ -237,16 +237,16 @@ object Season extends Enumeration {
 }
 
 object Suit extends Enumeration {
-	type Suit = Value
+	type Suit = SuitVal
 
-	implicit def toVal(v: Value) = v.asInstanceOf[SuiteVal]
+	implicit def toVal(v: Value) = v.asInstanceOf[SuitVal]
 
-	sealed case class SuiteVal(symbol: Char) extends Val
+	case class SuitVal private[Suit] (symbol: Char) extends Val
 
-	val Spades   = SuiteVal('♠')
-	val Hearts   = SuiteVal('♥')
-	val Diamonds = SuiteVal('♦')
-	val Clubs    = SuiteVal('♣')
+	val Spades   = SuitVal('♠')
+	val Hearts   = SuitVal('♥')
+	val Diamonds = SuitVal('♦')
+	val Clubs    = SuitVal('♣')
 }
 
 object Lang extends Enumeration {
@@ -264,14 +264,6 @@ object Lang extends Enumeration {
 
 	val French = new LangVal {
 		def greet(name: String) = s"Bienvenue, $name."
-	}
-
-	val Portuguese =  new LangVal {
-		def greet(name: String) = s"Bem-vindo, $name."
-	}
-
-	val Spanish = new LangVal {
-		def greet(name: String) = s"Bienvenido, $name."
 	}
 }
 
