@@ -110,7 +110,8 @@ import scala.collection.JavaConverters._
  */
 
 import scala.collection.JavaConversions.mapAsScalaMap
-var map: scala.collection.mutable.Map[String, String] = new java.util.HashMap[String, String]
+import scala.collection.mutable
+var map: mutable.Map[String, String] = new java.util.HashMap[String, String]
 map += "foo" -> "bar"
 assert(map("foo") == "bar")
 
