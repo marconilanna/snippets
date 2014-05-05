@@ -4,8 +4,8 @@
 
 // Java style
 object Echo {
-	def main(args: Array[String]) {
-		for (arg <- args) println(arg)
+	def main(args: Array[String]): Unit = {
+		args foreach { println _ }
 	}
 }
 
