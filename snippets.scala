@@ -42,11 +42,14 @@ def square(a: Int) = {a * a} ensuring(_ > 0)
  * Exceptions
  */
 
+import scala.util.control.NonFatal
+
 try {
 	// ...
 } catch {
+	case NonFatal(e) => // Recommended way to catch all
 	case e: Exception => // ...
-	case _: Throwable => // Catches all
+	case _: Throwable => // Not recommended
 }
 
 
