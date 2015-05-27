@@ -278,3 +278,4 @@ object Lang extends Enumeration {
  */
 
 import System.{currentTimeMillis => now}
+import System.{nanoTime => now}
