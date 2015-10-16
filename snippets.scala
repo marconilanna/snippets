@@ -83,13 +83,31 @@ foo(list:_*)
  */
 
 // Automatic Java get and set methods
-import scala.reflect.BeanProperty
+import scala.beans.{BeanProperty, BooleanBeanProperty}
+
+case class A(@BeanProperty var i: Int, @BooleanBeanProperty var b: Boolean)
+
+val a = A(1, true)
+
+a.setI(2)
+a.getI
+
+a.setB(false)
+a.isB
 
 // Warns when tail-recursion optimization is not possible
-@tailrec
+import scala.annotation.tailrec
 
-// Suppress exhaustivity checking for patterns
+@tailrec def f(i: Int, s: Int = 0): Int = if (i > 0) f(i - 1, s + i) else s
+
+// Warns when a match compiles to conditional expressions instead of tableswitch or lookupswitch
+import scala.annotation.switch
+
+(e: @switch) match { ... }
+
+// Suppress exhaustivity checking for pattern matching
 (e: @unchecked) match { ... }
+
 
 
 
