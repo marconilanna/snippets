@@ -20,8 +20,8 @@ foo.doYetAnotherThing()
 // Method chaining (whenever possible)
 var foo = $('.foo')
 foo.doSomething()
-	.doSomethingElse()
-	.doYetAnotherThing()
+  .doSomethingElse()
+  .doYetAnotherThing()
 
 // Counter-example: this is very inefficient!
 $('.foo').doSomething()

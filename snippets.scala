@@ -4,14 +4,14 @@
 
 // Java style
 object Echo {
-	def main(args: Array[String]): Unit = {
-		args foreach { println _ }
-	}
+  def main(args: Array[String]): Unit = {
+    args foreach { println _ }
+  }
 }
 
 // Alternative
 object Echo extends App {
-	for (arg <- args) println(arg)
+  for (arg <- args) println(arg)
 }
 
 
@@ -45,11 +45,11 @@ def square(a: Int) = {a * a} ensuring(_ > 0)
 import scala.util.control.NonFatal
 
 try {
-	// ...
+  // ...
 } catch {
-	case NonFatal(e) => // Recommended way to catch all
-	case e: Exception => // ...
-	case _: Throwable => // Not recommended
+  case NonFatal(e) => // Recommended way to catch all
+  case e: Exception => // ...
+  case _: Throwable => // Not recommended
 }
 
 
@@ -63,8 +63,8 @@ try {
  */
 
 e match {
-	case a: AnyRef => a
-	case _ => throw new ClassCastException
+  case a: AnyRef => a
+  case _ => throw new ClassCastException
 }
 
 
@@ -103,11 +103,14 @@ import scala.annotation.tailrec
 // Warns when a match compiles to conditional expressions instead of tableswitch or lookupswitch
 import scala.annotation.switch
 
-(e: @switch) match { ... }
+(i: @switch) match {
+  case 1 => "One"
+  case 2 => "Two"
+  case _ => "Many"
+}
 
 // Suppress exhaustivity checking for pattern matching
 (e: @unchecked) match { ... }
-
 
 
 
@@ -210,8 +213,8 @@ val regex(a, b, c) = "xyz" // Matches and extracts regex against "xyz"
 assert((a, b, c) == ("x", "y", "z"))
 
 "xyz" match {
-	case regex(a, b, c) => // Match found
-	case _ => // No match
+  case regex(a, b, c) => // Match found
+  case _ => // No match
 }
 
 
@@ -221,7 +224,7 @@ assert((a, b, c) == ("x", "y", "z"))
  */
 
 object Twice {
-	def unapply(x: Int) = if (x % 2 == 0) Some(x/2) else None
+  def unapply(x: Int) = if (x % 2 == 0) Some(x/2) else None
 }
 val Twice(i) = 20
 assert(i == 10)
@@ -229,7 +232,7 @@ val Twice(j) = 15 // Throws MatchError
 
 // Works with instances, too
 class Foo(i: Int) {
-	def unapply(x: Int) = if (x == i) Some(Some(x)) else Some(None)
+  def unapply(x: Int) = if (x == i) Some(Some(x)) else Some(None)
 }
 val foo = new Foo(10)
 val foo(a) = 10
@@ -254,39 +257,39 @@ case object Male extends Gender
 case object Female extends Gender
 
 object Season extends Enumeration {
-	type Season = Value
-	val Spring, Summer, Autumn, Winter = Value
+  type Season = Value
+  val Spring, Summer, Autumn, Winter = Value
 }
 
 object Suit extends Enumeration {
-	type Suit = SuitVal
+  type Suit = SuitVal
 
-	implicit def toVal(v: Value) = v.asInstanceOf[SuitVal]
+  implicit def toVal(v: Value) = v.asInstanceOf[SuitVal]
 
-	case class SuitVal private[Suit] (symbol: Char) extends Val
+  case class SuitVal private[Suit] (symbol: Char) extends Val
 
-	val Spades   = SuitVal('♠')
-	val Hearts   = SuitVal('♥')
-	val Diamonds = SuitVal('♦')
-	val Clubs    = SuitVal('♣')
+  val Spades   = SuitVal('♠')
+  val Hearts   = SuitVal('♥')
+  val Diamonds = SuitVal('♦')
+  val Clubs    = SuitVal('♣')
 }
 
 object Lang extends Enumeration {
-	type Lang = LangVal
+  type Lang = LangVal
 
-	implicit def toVal(v: Value) = v.asInstanceOf[LangVal]
+  implicit def toVal(v: Value) = v.asInstanceOf[LangVal]
 
-	sealed abstract class LangVal extends Val {
-		def greet(name: String): String
-	}
+  sealed abstract class LangVal extends Val {
+    def greet(name: String): String
+  }
 
-	val English = new LangVal {
-		def greet(name: String) = s"Welcome, $name."
-	}
+  val English = new LangVal {
+    def greet(name: String) = s"Welcome, $name."
+  }
 
-	val French = new LangVal {
-		def greet(name: String) = s"Bienvenue, $name."
-	}
+  val French = new LangVal {
+    def greet(name: String) = s"Bienvenue, $name."
+  }
 }
 
 

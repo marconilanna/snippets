@@ -3,7 +3,7 @@
  */
 
 var Class = function () {
-	this.method = function () {}
+  this.method = function () {}
 }
 var object = new Class()
 
@@ -14,11 +14,11 @@ var object = new Class()
  */
 
 var myClass = function () {
-	var privateMethod = function () {}
-	var publicMethod = function () {}
-	return {
-		method: publicMethod
-	}
+  var privateMethod = function () {}
+  var publicMethod = function () {}
+  return {
+    method: publicMethod
+  }
 }
 var object = myClass()
 
@@ -30,6 +30,6 @@ var object = myClass()
 
 var Class = function () {}
 Class.prototype = {
-	method: function () {}
+  method: function () {}
 }
 var object = new Class()
